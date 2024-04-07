@@ -13,7 +13,17 @@ import (
 var DB *sql.DB
 
 func init() {
-	_db, err := sql.Open("mysql", "asdasd")
+	username := ""
+	password := ""
+	host := "akshaysqlserver.mysql.database.azure.com"
+	port := 3306
+	database := "testdb"
+
+	// build the DSN
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", username, password, host, port, database)
+	// Open the connection
+	_db, err := sql.Open("mysql", dsn)
+
 	if err != nil {
 		panic(err)
 	}
@@ -69,7 +79,7 @@ func main() {
 		ctx.JSON(200, statusMap)
 	})
 
-	ge.Run(":9000")
+	ge.Run(":8080")
 }
 
 //  go mod init connection-pooling
